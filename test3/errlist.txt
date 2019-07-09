@@ -1,0 +1,15 @@
+SymbolStack:<<
+x int null 0 0 0
+y int null 0 0 0
+t char null 0 0 0
+z char null 0 0 0
+gcd function int 4 0 0
+paralist:
+<a, int, 1> <b, int, 1> <c, char, 0> <d, char, 0> 
+a int null 0 0 1
+b int null 0 0 1
+c char null 0 0 0
+d char null 0 0 0
+BlockStack:<<
+4 
+compile complete ^^

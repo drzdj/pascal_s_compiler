@@ -26,6 +26,9 @@ struct Position {
 	string view(){
 		return to_string(row) + ":" + to_string(col);
 	}
+	string view2(){
+		return string("line: ") + to_string(row);
+	}
 };
 
 struct myTYPE {

@@ -61,13 +61,13 @@ int CheckReference(string funcname, string paraname);
 int CheckType(string funcame, vector<string> _type);
 //判别funcname中的参数类型和给定的_type中的类型是否一一匹配，成功时返回RIGHT,维度不一样返回DIMENSION_ERROR，函数不存在返回FAILED，不匹配返回NOT_MATCH
 
-#define add_variable(name, type) InsertSymbol(name, type, "null", 0, 0, 0);
-#define add_const(name, type) InsertSymbol(name, type, "null", 0, 1, 0);
-#define add_array(name, element_type, n) InsertSymbol(name, "array", element_type, n, 0, 0);
-#define add_procedure(name, n) InsertSymbol(name, "procedure", "null", n, 0, 0);
-#define add_function(name, return_type, n) InsertSymbol(name, "function", return_type, n, 0, 0);
-#define add_para(funcname, name, type) InsertParaSymbol(funcname, name, type, 0, 0);
-#define add_refpara(funcname, name, type) InsertParaSymbol(funcname, name, type, 1, 0);
+#define add_variable(name, type) InsertSymbol(name, type, "null", 0, 0, 0)
+#define add_const(name, type) InsertSymbol(name, type, "null", 0, 1, 0)
+#define add_array(name, element_type, n) InsertSymbol(name, "array", element_type, n, 0, 0)
+#define add_procedure(name, n) InsertSymbol(name, "procedure", "null", n, 0, 0)
+#define add_function(name, return_type, n) InsertSymbol(name, "function", return_type, n, 0, 0)
+#define add_para(funcname, name, type) InsertParaSymbol(funcname, name, type, 0, 0)
+#define add_refpara(funcname, name, type) InsertParaSymbol(funcname, name, type, 0, 1)
 
 //调试函数
 void symbol_print(Symbol t);

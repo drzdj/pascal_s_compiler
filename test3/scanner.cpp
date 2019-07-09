@@ -187,17 +187,17 @@ int yylex() {
 			if ((ch = fgetc(fp)) == '=') {
 				arr += ch;
 				pos->change(arr);
-				return formatOutput(res, "relop", "LE");
+				return formatOutput(res, "relop", "<=");
 			}
 			else if (ch == '>') {
 				arr += ch;
 				pos->change(arr);
-				return formatOutput(res, "relop", "NE");
+				return formatOutput(res, "relop", "!=");
 			}
 			else {
 				ungetc(ch, fp);
 				pos->change(arr);
-				return formatOutput(res, "relop", "LT");
+				return formatOutput(res, "relop", "<");
 			}
 			break;
 		case '>':
@@ -205,12 +205,12 @@ int yylex() {
 			if ((ch = fgetc(fp)) == '=') {
 				arr += ch;
 				pos->change(arr);
-				return formatOutput(res, "relop", "GE");
+				return formatOutput(res, "relop", ">=");
 			}
 			else {
 				ungetc(ch, fp);
 				pos->change(arr);
-				return formatOutput(res, "relop", "GT");
+				return formatOutput(res, "relop", ">");
 			}
 			break;
 		case ':':
@@ -368,7 +368,7 @@ int formatOutput(FILE * res, string s1, string s2) {
 	//}
 	yylval.typ = s1;
 	yylval.val = s2;
-	fprintf(stderr, ">>>%s %s\n", s1.c_str(), s2.c_str());
+	//fprintf(stderr, ">%s %s\n", s1.c_str(), s2.c_str());
 	
 	
 	if (s1 == "program") {

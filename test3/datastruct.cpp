@@ -5,24 +5,24 @@ string validtypes[] = {"int", "char", "float", "boolean", "array", "function", "
 
 //调试输出函数
 void symbol_print(Symbol t){
-	cout << t.name << ' ' << t.type << ' ' << t.subtype << ' ' << t.dimension << ' ' << t.isconst << ' ' << t.isref << endl;
+	cerr << t.name << ' ' << t.type << ' ' << t.subtype << ' ' << t.dimension << ' ' << t.isconst << ' ' << t.isref << endl;
 	if(t.type == "function" || t.type == "procedure"){
-		cout << "paralist:" << endl;
+		cerr << "paralist:" << endl;
 		for(auto p: t.paralist)
-			cout << "<" << p.name << ", " << p.type << ", " << p.isref << "> ";
-		cout << endl;
+			cerr << "<" << p.name << ", " << p.type << ", " << p.isref << "> ";
+		cerr << endl;
 	}
 	return;
 }
 
 void symboltable_print(SymbolTable t){
-	cout << "SymbolStack:<<" << endl;
+	cerr << "SymbolStack:<<" << endl;
 	for(auto p: t.Sstack)
 		symbol_print(p);
-	cout << "BlockStack:<<" << endl;
+	cerr << "BlockStack:<<" << endl;
 	for(auto p: t.Bstack)
-		cout << p << ' ';
-	cout << endl;
+		cerr << p << ' ';
+	cerr << endl;
 	return;
 }
 
@@ -81,7 +81,7 @@ int PopBlock(){
 }
 
 //插入参数符号，成功时返回在对应函数参数列表的位置, 若失败返回FAILED
-int InsertParaSymbol(string funcname, string name ,string type, bool isconst, bool isref){
+int InsertParaSymbol(string funcname, string name, string type, bool isconst, bool isref){
 	int func_pos = CheckSymbol(funcname), pos; 
 	if(func_pos == FAILED) return FAILED; //函数不存在
 	if(st.Sstack[func_pos].paralist.size() == st.Sstack[func_pos].dimension) return NOT_MATCH;//函数参数已经足够，无法再添加元素

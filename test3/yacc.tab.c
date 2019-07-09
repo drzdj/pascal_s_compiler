@@ -68,9 +68,8 @@
 #include "datastruct.h"
 
 extern Position * pos;
-extern SymbolTable st;
 
-#line 74 "y.tab.c" /* yacc.c:339  */
+#line 73 "yacc.tab.c" /* yacc.c:339  */
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -89,9 +88,9 @@ extern SymbolTable st;
 #endif
 
 /* In a future release of Bison, this section will be replaced
-   by #include "y.tab.h".  */
-#ifndef YY_YY_Y_TAB_H_INCLUDED
-# define YY_YY_Y_TAB_H_INCLUDED
+   by #include "yacc.tab.h".  */
+#ifndef YY_YY_YACC_TAB_H_INCLUDED
+# define YY_YY_YACC_TAB_H_INCLUDED
 /* Debug traces.  */
 #ifndef YYDEBUG
 # define YYDEBUG 0
@@ -150,50 +149,6 @@ extern int yydebug;
     NOT = 236
   };
 #endif
-/* Tokens.  */
-#define COLON 1
-#define LCIRCLE 2
-#define RCIRCLE 3
-#define LCUBE 4
-#define RCUBE 5
-#define SEMICOLON 6
-#define POINT 7
-#define COMMA 8
-#define DIGIT 9
-#define PROGRAM 201
-#define CONST 202
-#define VAR 203
-#define FUNCTION 204
-#define PROCEDURE 205
-#define BEGIN 206
-#define END 207
-#define FOR 208
-#define IF 209
-#define THEN 210
-#define ELSE 211
-#define WHILE 212
-#define TO 213
-#define DO 214
-#define OF 215
-#define CALL 216
-#define READ 217
-#define WRITE 218
-#define INTEGER 219
-#define REAL 220
-#define BOOLEAN 221
-#define CHAR 222
-#define OR 223
-#define AND 224
-#define DIV 225
-#define ID 226
-#define CHARA 229
-#define RELOP 230
-#define ADDOP 231
-#define MULOP 232
-#define ASSIGNOP 233
-#define MOD 234
-#define ARRAY 235
-#define NOT 236
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
@@ -207,13 +162,13 @@ extern YYSTYPE yylval;
 
 int yyparse (void);
 
-#endif /* !YY_YY_Y_TAB_H_INCLUDED  */
+#endif /* !YY_YY_YACC_TAB_H_INCLUDED  */
 
 /* Copy the second part of user declarations.  */
 
-#line 215 "y.tab.c" /* yacc.c:358  */
+#line 170 "yacc.tab.c" /* yacc.c:358  */
 /* Unqualified %code blocks.  */
-#line 57 "yacc.y" /* yacc.c:359  */
+#line 56 "yacc.y" /* yacc.c:359  */
 
 
 /*chenrui*/
@@ -221,23 +176,14 @@ int dimen = 0; //变量的维度
 string array_num; //数组变量的范围，如 a[10][10]
 
 int id_num = 0;//存储需要加入符号表的变量数量
-string id_nam[100]; //存储需要加入符号表的变量名称
+//vector<string> id_name; //存储需要加入符号表的变量名称
 int array_flag = 0; //是否有数组变量
 string var_name;//变量名称
 
 string const_id;//常量变量的名称
-vector<string> period_list;
 
 /*chenrui*/
 
-
-/*part2*/
-string ReadToScanf(string in);
-string WriteToPrintf(string in);
-vector<Symbol> paraList2;
-vector<Symbol> paraList;
-bool isVarPara;
-/*part2*/
 
 
 /*part3*/
@@ -249,7 +195,7 @@ vector<string> typ_list;
 
 
 
-#line 253 "y.tab.c" /* yacc.c:359  */
+#line 199 "yacc.tab.c" /* yacc.c:359  */
 
 #ifdef short
 # undef short
@@ -546,14 +492,14 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint16 yyrline[] =
 {
-       0,    97,    97,   108,   112,   119,   130,   137,   149,   153,
-     161,   175,   192,   204,   209,   221,   227,   234,   253,   275,
-     287,   303,   308,   313,   318,   326,   337,   351,   357,   362,
-     370,   393,   416,   420,   426,   431,   437,   441,   446,   460,
-     484,   489,   494,   498,   504,   518,   522,   526,   534,   552,
-     556,   560,   567,   572,   579,   609,   613,   618,   631,   653,
-     658,   664,   669,   676,   696,   702,   725,   731,   751,   757,
-     762,   767,   792,   797,   802,   808,   813,   819,   824,   830
+       0,    87,    87,    96,   100,   107,   118,   124,   134,   138,
+     145,   154,   166,   178,   183,   195,   200,   206,   221,   239,
+     251,   266,   270,   274,   278,   285,   296,   307,   310,   314,
+     319,   324,   329,   333,   337,   341,   346,   350,   355,   360,
+     365,   370,   375,   379,   384,   388,   392,   396,   400,   404,
+     408,   412,   416,   421,   428,   454,   458,   463,   476,   498,
+     503,   509,   514,   521,   537,   543,   566,   572,   586,   592,
+     597,   602,   623,   628,   633,   639,   644,   650,   655,   661
 };
 #endif
 
@@ -1435,689 +1381,549 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 97 "yacc.y" /* yacc.c:1646  */
+#line 87 "yacc.y" /* yacc.c:1646  */
     {
 /* 1. programstruct -> program_head; program_body. */
-		(yyval).val = "#include <stdio.h>\n" + (yyvsp[-1]).val;
 		cout << (yyval).val;
-		//cout << $$.val;
-		cerr << "compile complete ^^" << endl;
+		cout << "compile complete" << endl;
 	}
-#line 1447 "y.tab.c" /* yacc.c:1646  */
+#line 1391 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 3:
-#line 108 "yacc.y" /* yacc.c:1646  */
+#line 96 "yacc.y" /* yacc.c:1646  */
     {
 //pascal中的program无实际含义
 	}
-#line 1455 "y.tab.c" /* yacc.c:1646  */
+#line 1399 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 4:
-#line 112 "yacc.y" /* yacc.c:1646  */
+#line 100 "yacc.y" /* yacc.c:1646  */
     {
 /*3. program_head -> program id(idlist) 有参数*/
 //pascal中的program无实际含义
 	}
-#line 1464 "y.tab.c" /* yacc.c:1646  */
+#line 1408 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 5:
-#line 122 "yacc.y" /* yacc.c:1646  */
+#line 110 "yacc.y" /* yacc.c:1646  */
     {
 /*4. program_body -> const_declarations var_declarations subprogram_declarations compound_statement*/
-		(yyval).val = (yyvsp[-3]).val + (yyvsp[-2]).val + (yyvsp[-1]).val + "int main()\n{\n" + (yyvsp[0]).val + "return 0;\n}\n";
+		(yyval).val = (yyvsp[-3]).val + (yyvsp[-2]).val + (yyvsp[-1]).val + (yyvsp[0]).val;
 	}
-#line 1473 "y.tab.c" /* yacc.c:1646  */
+#line 1417 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 6:
-#line 130 "yacc.y" /* yacc.c:1646  */
+#line 118 "yacc.y" /* yacc.c:1646  */
     {
-
-		id_nam[id_num] = (yyvsp[0]).val;
+		id_name[id_num] = (yyvsp[0]).val;
 		id_num++;
 		var_name.append(",");
 		var_name.append((yyvsp[0]).val);
 	}
-#line 1485 "y.tab.c" /* yacc.c:1646  */
+#line 1428 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 7:
-#line 137 "yacc.y" /* yacc.c:1646  */
+#line 124 "yacc.y" /* yacc.c:1646  */
     {
 /*6. idlist -> id*/
-
-		id_num = 0;
-		id_nam[id_num] = (yyvsp[0]).val;
+		id_name[id_num] = (yyvsp[0]).val;
 		id_num++;
-		var_name = (yyvsp[0]).val;
+		var_name = (yyvsp[0]);
 	}
-#line 1498 "y.tab.c" /* yacc.c:1646  */
+#line 1439 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 8:
-#line 149 "yacc.y" /* yacc.c:1646  */
+#line 134 "yacc.y" /* yacc.c:1646  */
     {
 /*7. const_declarations -> const const_declaration; */
-		(yyval).val = string("const") + " " + (yyvsp[-1]).val + ";";
+		(yyval).val = "const" + " " + (yyvsp[-1]).val + ";";
 	}
-#line 1507 "y.tab.c" /* yacc.c:1646  */
+#line 1448 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 9:
-#line 153 "yacc.y" /* yacc.c:1646  */
+#line 138 "yacc.y" /* yacc.c:1646  */
     {
 
 /*8. const_declarations -> 空*/
-		(yyval).val = "";
 	}
-#line 1517 "y.tab.c" /* yacc.c:1646  */
+#line 1457 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 10:
-#line 161 "yacc.y" /* yacc.c:1646  */
+#line 145 "yacc.y" /* yacc.c:1646  */
     { 
 // 只有relop为=时才可以归约
 /*9. const_declaration -> const_declaration; id = const_value*/
-		if((yyvsp[-1]).val == "="){
-			const_id = (yyvsp[-2]).val;
-			if (add_const(const_id, (yyvsp[0]).typ) == FAILED )
-				yyerror(((yyvsp[-2]).val + "already exists!").c_str());
-			else (yyval).val = (yyvsp[-4]).val + "const " + (yyvsp[0]).typ + " " + (yyvsp[-2]).val + "=" + (yyvsp[0]).val + ";\n";
+		const_id = (yyvsp[-2]).val;
+		if (add_const(const_id, (yyvsp[0]).type) == FAILED){
+			yyerror((yyvsp[-2]));
 		}
-		else{
-			yyerror("syntax error(EQ)!!!");
-		}
-		
+		(yyval).val = (yyvsp[-4]).val + "," + (yyvsp[0]).type + " " + (yyvsp[-2]).val + "=" + (yyvsp[0]).val;
 	}
-#line 1536 "y.tab.c" /* yacc.c:1646  */
+#line 1471 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 11:
-#line 175 "yacc.y" /* yacc.c:1646  */
+#line 154 "yacc.y" /* yacc.c:1646  */
     { 
 //同上
 /*10. const_declaration -> id = const_value*/
-		if((yyvsp[-1]).val == "="){
-			const_id = (yyvsp[-2]).val;
-			if (add_const(const_id, (yyvsp[0]).typ) == FAILED){
-				yyerror(((yyvsp[0]).val + "already exists!").c_str());
-			}
-			else (yyval).val = string("const ") + (yyvsp[0]).typ + "" + (yyvsp[-2]).val + "=" + (yyvsp[0]).val + ";\n";
+		const_id = (yyvsp[-2]).val;
+		if (add_const(const_id, (yyvsp[0]).type) == FAILED){
+			yyerror((yyvsp[0]));
 		}
-		else{
-			yyerror("syntax error(EQ)!!!");
-		}
+		(yyval).val = (yyvsp[0]).type + ' ' + (yyvsp[-2]).val + "=" + (yyvsp[0]).val;
 	}
-#line 1555 "y.tab.c" /* yacc.c:1646  */
+#line 1485 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 12:
-#line 192 "yacc.y" /* yacc.c:1646  */
+#line 166 "yacc.y" /* yacc.c:1646  */
     { 
 /*11. const_value -> ADDOP num*/
 		if ((yyval).val == "-"){
-			(yyval).typ = (yyvsp[0]).typ;
+			(yyval).type = (yyvsp[0]).type;
 			(yyval).val = "-" + (yyvsp[0]).val;
 		}
 
 		if ((yyval).val == "+"){
-			(yyval).typ = (yyvsp[0]).typ;
+			(yyval).type = (yyvsp[0]).type;
 			(yyval).val = "+" + (yyvsp[0]).val;
 		}
 	}
-#line 1572 "y.tab.c" /* yacc.c:1646  */
+#line 1502 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 13:
-#line 204 "yacc.y" /* yacc.c:1646  */
+#line 178 "yacc.y" /* yacc.c:1646  */
     {
 /*12. const_value -> num*/
-		(yyval).typ = (yyvsp[0]).typ;
+		(yyval).type = (yyvsp[0]).type;
 		(yyval).val = (yyvsp[0]).val;
 	}
-#line 1582 "y.tab.c" /* yacc.c:1646  */
+#line 1512 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 14:
-#line 209 "yacc.y" /* yacc.c:1646  */
+#line 183 "yacc.y" /* yacc.c:1646  */
     { 
 /*13. const_value -> 'letter'*/
 // 单个字符，注意在翻译时加上两侧的单引号
-		(yyval).typ = "char";
+		(yyval).type = "char";
 		(yyval).val = "\'" + (yyvsp[0]).val + "\'";
 	}
-#line 1593 "y.tab.c" /* yacc.c:1646  */
+#line 1523 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 15:
-#line 222 "yacc.y" /* yacc.c:1646  */
+#line 196 "yacc.y" /* yacc.c:1646  */
     {
 /*14. var_declarations -> var var_declaration; */
-		(yyval).val = (yyvsp[-1]).val;
-		//cerr << "????" << $2.val << endl;
+		(yyval).val = (yyvsp[-1]).val + ";/n";
 	}
-#line 1603 "y.tab.c" /* yacc.c:1646  */
+#line 1532 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 16:
-#line 227 "yacc.y" /* yacc.c:1646  */
+#line 200 "yacc.y" /* yacc.c:1646  */
     {
 /*15. var_declarations -> 空*/
-		(yyval).val = "";
 	}
-#line 1612 "y.tab.c" /* yacc.c:1646  */
+#line 1540 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 17:
-#line 235 "yacc.y" /* yacc.c:1646  */
+#line 207 "yacc.y" /* yacc.c:1646  */
     {
 /*16. var_declaration -> var_declaration; idlist : type*/
-
 		(yyval).val = (yyvsp[-4]).val;	
 		if (array_flag == 0){
-			(yyval).val += (yyvsp[0]).val + " " + var_name + ";\n";
+			(yyval).val = (yyvsp[0]).val + " " + var_name;
 		}
 		else {
-			for(int i = 0; i < id_num; i ++){
-				(yyval).val += (yyvsp[0]).typ + " " + id_nam[i];
-				for(auto p: period_list)
-					(yyval).val += "[" + p + "]";
-				if(i != id_num - 1) (yyval).val += ",";
-				else (yyval).val += ";\n";
+			string[] tmp = var_name.split(",");
+			for (int i = 0; i < tmp.length; i++){
+				(yyval).val = (yyvsp[0]).type + " " + tmp[i] + array_num;
 			}
 			array_flag = 0;
 		}
 	}
-#line 1635 "y.tab.c" /* yacc.c:1646  */
+#line 1559 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 18:
-#line 254 "yacc.y" /* yacc.c:1646  */
+#line 222 "yacc.y" /* yacc.c:1646  */
     {
 /*17. var_declaration -> idlist : type*/
 //是否存在数组元素，不存在则较为方便，存在数组元素则需要转换顺序的语义动作
 		if (array_flag == 0){
-			(yyval).val = (yyvsp[0]).val + " " + var_name + ";\n";
+			(yyval).val = (yyvsp[0]).val + " " + var_name;
 		}
 		else {
-			(yyval).val = "";
-			for(int i = 0; i < id_num; i ++){
-				(yyval).val += (yyvsp[0]).typ + " " + id_nam[i];
-				for(auto p: period_list)
-					(yyval).val += "[" + p + "]";
-				if(i != id_num - 1) (yyval).val += ",";
-				else (yyval).val += ";\n";
+			string[] tmp = var_name.split(",");
+			for (int i = 0; i < tmp.length; i++){
+				(yyval).val = (yyvsp[0]).type + " " + tmp[i] + array_num;
 			}
 			array_flag = 0;
 		}
 	}
-#line 1658 "y.tab.c" /* yacc.c:1646  */
+#line 1578 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 19:
-#line 275 "yacc.y" /* yacc.c:1646  */
+#line 239 "yacc.y" /* yacc.c:1646  */
     {
 /*18. type -> basic_type*/
-		(yyval).typ = (yyvsp[0]).typ;
+		(yyval).type = (yyvsp[0]).type;
 		if (array_flag == 0){
 			for (int i = 0; i < id_num; i++){
-				if (add_variable(id_nam[i], (yyval).typ) == FAILED){
-					yyerror((id_nam[i] + " already exists").c_str());
+				if (add_variable(id_name[i], (yyval).type) == FAILED){
+					yyerror(id_name[i]);
 				}
 			}
 		}
 		dimen = 0;
 	}
-#line 1675 "y.tab.c" /* yacc.c:1646  */
+#line 1595 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 20:
-#line 287 "yacc.y" /* yacc.c:1646  */
+#line 251 "yacc.y" /* yacc.c:1646  */
     {
 /*19. type -> array [period] of basic_types*/
-		(yyval).typ = (yyvsp[0]).typ;
+		(yyval).type = (yyvsp[0]).type;
 		array_flag = 1;
-		dimen = period_list.size();
 		for (int i = 0; i < id_num; i++){
-			if (add_array(id_nam[i], (yyvsp[0]).typ, dimen) == FAILED){
-				yyerror((id_nam[i] + " already exists").c_str());
+			if (add_array(id_name[i], (yyvsp[0]).type, dimen) == FAILED){
+				yyerror(id_name[i]);
 			}
 		}
 		dimen = 0;
 	}
-#line 1692 "y.tab.c" /* yacc.c:1646  */
+#line 1611 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 21:
-#line 303 "yacc.y" /* yacc.c:1646  */
+#line 266 "yacc.y" /* yacc.c:1646  */
     {
 /*20. basic_type -> integer*/
-		(yyval).typ = "int";
-		(yyval).val = "int";
+		(yyval).type = "int";
 	}
-#line 1702 "y.tab.c" /* yacc.c:1646  */
+#line 1620 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 22:
-#line 308 "yacc.y" /* yacc.c:1646  */
+#line 270 "yacc.y" /* yacc.c:1646  */
     {
 /*21. basic_type -> real*/
-		(yyval).typ = "float";
-		(yyval).val = "float";
+		(yyval).type = "float";
 	}
-#line 1712 "y.tab.c" /* yacc.c:1646  */
+#line 1629 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 23:
-#line 313 "yacc.y" /* yacc.c:1646  */
+#line 274 "yacc.y" /* yacc.c:1646  */
     {
 /*22. basic_type -> boolean*/
-		(yyval).typ = "boolean";
-		(yyval).val = "boolean";
+		(yyval).type = "bool";
 	}
-#line 1722 "y.tab.c" /* yacc.c:1646  */
+#line 1638 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 24:
-#line 318 "yacc.y" /* yacc.c:1646  */
+#line 278 "yacc.y" /* yacc.c:1646  */
     {
 /*23. basic_type -> char */
-		(yyval).typ = "char";
-		(yyval).val = "char";
+		(yyval).type = "char";
 	}
-#line 1732 "y.tab.c" /* yacc.c:1646  */
+#line 1647 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 25:
-#line 327 "yacc.y" /* yacc.c:1646  */
+#line 286 "yacc.y" /* yacc.c:1646  */
     { 
 /*24. period -> period, num .. num */
 /*将period, num .. num转换为period[num2-num1+1]*/
+		dimen++; 
 		int x = atoi((yyvsp[0]).val.c_str()) - atoi((yyvsp[-3]).val.c_str()) + 1;
-		if(x <= 0) {
-			yyerror("period error!");
-		}
-		else
-			period_list.push_back(to_string(x));
+		string tmp = to_string(x);
+		array_num.append("[");
+		array_num.append(tmp);
+		array_num.append("]");
 	}
-#line 1747 "y.tab.c" /* yacc.c:1646  */
+#line 1662 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 26:
-#line 337 "yacc.y" /* yacc.c:1646  */
+#line 296 "yacc.y" /* yacc.c:1646  */
     {
 /*25. period -> num .. num*/
-		period_list.clear();
+		dimen++;
 		int x = atoi((yyvsp[0]).val.c_str()) - atoi((yyvsp[-3]).val.c_str()) + 1;
-		if(x <= 0) {
-			yyerror("period error!");
-		}
-		else
-			period_list.push_back(to_string(x));
+		string tmp = to_string(x);
+		array_num.append("[");
+		array_num.append(tmp);
+		array_num.append("]");
 	}
-#line 1762 "y.tab.c" /* yacc.c:1646  */
+#line 1676 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 27:
-#line 351 "yacc.y" /* yacc.c:1646  */
+#line 307 "yacc.y" /* yacc.c:1646  */
     {
 						/* 26.	subprogram_declarations -> subprogram_declarations   subprogram  ;*/
-								
-								(yyval).val = (yyvsp[-2]).val + (yyvsp[-1]).val;
-								
 							}
-#line 1773 "y.tab.c" /* yacc.c:1646  */
+#line 1684 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 28:
-#line 357 "yacc.y" /* yacc.c:1646  */
+#line 310 "yacc.y" /* yacc.c:1646  */
     {
-						/* 27.	subprogram_declarations ->  ε */
-								(yyval).val = "";
+						/* 27.	subprogram_declarations ->  ??*/
 						}
-#line 1782 "y.tab.c" /* yacc.c:1646  */
+#line 1692 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 29:
-#line 362 "yacc.y" /* yacc.c:1646  */
+#line 314 "yacc.y" /* yacc.c:1646  */
     {
 						/* 28.	subprogram -> subprogram_head   ;  subprogram_body */
-								//symboltable_print(st);
-								if(PopBlock() == FAILED){yyerror("pop block error.");}
-								(yyval).val = (yyvsp[-2]).val + (yyvsp[0]).val;
-
+	
 							}
-#line 1794 "y.tab.c" /* yacc.c:1646  */
+#line 1701 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 30:
-#line 370 "yacc.y" /* yacc.c:1646  */
+#line 319 "yacc.y" /* yacc.c:1646  */
     {
 						/* 29.	subprogram_head -> procedure  id  formal_parameter    */
-								{ 
-								if(FindSymbol((yyvsp[-1]).val) == FAILED){
-									add_procedure((yyvsp[-1]).val, paraList.size());
-									if(InsertBlock() == FAILED){yyerror("insert block error.");} 
-									(yyval).val = "void " + (yyvsp[-1]).val + "(" + (yyvsp[0]).val + ")\n";
-									for(int i = 0; i < paraList.size(); i++){
-											Symbol tmp = paraList.at(i);
-											if(tmp.isref){
-												add_refpara((yyvsp[-1]).val, tmp.name, tmp.type);
-											}
-											else{
-												add_para((yyvsp[-1]).val, tmp.name, tmp.type);
-											}
-									}
-								}
-								else{
-									yyerror("function declared implicitly.");
-								}
-								paraList.clear();
-								}
+
+	
 							}
-#line 1822 "y.tab.c" /* yacc.c:1646  */
+#line 1711 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 31:
-#line 393 "yacc.y" /* yacc.c:1646  */
+#line 324 "yacc.y" /* yacc.c:1646  */
     {
 						/* 30.	subprogram_head -> function  id  formal_parameter  :  simple_type     */
-								if(FindSymbol((yyvsp[-3]).val) == FAILED){
-									add_function((yyvsp[-3]).val, (yyvsp[0]).val, paraList.size());
-									if(InsertBlock() == FAILED){yyerror("insert block error.");}
-									(yyval).val = (yyvsp[0]).val + " " + (yyvsp[-3]).val + "(" + (yyvsp[-2]).val + ")\n";
-									for(int i = 0; i < paraList.size(); i++){
-											Symbol tmp = paraList.at(i);
-											if(tmp.isref){
-												add_refpara((yyvsp[-3]).val, tmp.name, tmp.type);
-											}
-											else{
-												add_para((yyvsp[-3]).val, tmp.name, tmp.type);
-											}
-									}
-								}
-								else{
-									yyerror("function declared implicitly.");
-								}
-								paraList.clear();
-								symboltable_print(st);
+
 							}
-#line 1849 "y.tab.c" /* yacc.c:1646  */
+#line 1720 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 32:
-#line 416 "yacc.y" /* yacc.c:1646  */
+#line 329 "yacc.y" /* yacc.c:1646  */
     {
 						/* 31.	formal_parameter -> (  parameter_list  )    */
-								(yyval).val = (yyvsp[-1]).val;
+	
 							}
-#line 1858 "y.tab.c" /* yacc.c:1646  */
+#line 1729 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 33:
-#line 420 "yacc.y" /* yacc.c:1646  */
+#line 333 "yacc.y" /* yacc.c:1646  */
     {
-						/* 32.	formal_parameter ->  ε */
-								(yyval).val = "";
+						/* 32.	formal_parameter ->  ??*/
 						}
-#line 1867 "y.tab.c" /* yacc.c:1646  */
+#line 1737 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 34:
-#line 426 "yacc.y" /* yacc.c:1646  */
+#line 337 "yacc.y" /* yacc.c:1646  */
     {
 						/* 33.	parameter_list -> parameter_list  ;  parameter     */
-								(yyval).val = (yyvsp[-2]).val + ", " + (yyvsp[0]).val;
-								paraList2.clear();
+	
 							}
-#line 1877 "y.tab.c" /* yacc.c:1646  */
+#line 1746 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 35:
-#line 431 "yacc.y" /* yacc.c:1646  */
+#line 341 "yacc.y" /* yacc.c:1646  */
     {
 						/* 34.	parameter_list -> parameter*/
-								(yyval).val = (yyvsp[0]).val;
-								paraList2.clear();
+
 							}
-#line 1887 "y.tab.c" /* yacc.c:1646  */
+#line 1755 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 36:
-#line 437 "yacc.y" /* yacc.c:1646  */
+#line 346 "yacc.y" /* yacc.c:1646  */
     {
 						/* 35.	parameter -> var_parameter   */
-								(yyval).val = (yyvsp[0]).val;
+	
 							}
-#line 1896 "y.tab.c" /* yacc.c:1646  */
+#line 1764 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 37:
-#line 441 "yacc.y" /* yacc.c:1646  */
+#line 350 "yacc.y" /* yacc.c:1646  */
     {
 						/* 36.	parameter -> value_parameter */
-								(yyval).val = (yyvsp[0]).val;
+
 							}
-#line 1905 "y.tab.c" /* yacc.c:1646  */
+#line 1773 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 38:
-#line 446 "yacc.y" /* yacc.c:1646  */
+#line 355 "yacc.y" /* yacc.c:1646  */
     {
 						/* 37.	var_parameter -> var  value_parameter  */
-								for(int i = (int)paraList.size() - 1; i >= (int)paraList.size() - (int)paraList.size(); i --)
-									paraList[i].isref = 1;
-								int num = paraList2.size();
-								string out = "";
-								for(int i = 0; i < num; i++){
-									out = out + (yyvsp[0]).typ + " ";
-									out +="&";
-									out = out + paraList2.at(i).name + ", ";
-								}
-								(yyval).val = out.substr(0, out.size()-2);
+	
 							}
-#line 1923 "y.tab.c" /* yacc.c:1646  */
+#line 1782 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 39:
-#line 460 "yacc.y" /* yacc.c:1646  */
+#line 360 "yacc.y" /* yacc.c:1646  */
     {
 						/* 38.	value_parameter -> idlist  :  simple_type  */
-								for(int i = 0; i < id_num; i ++){
-									Symbol tmp;
-									tmp.name = id_nam[i];
-									tmp.isref = 0;
-									tmp.type = (yyvsp[0]).typ;
-									paraList.push_back(tmp);
-									paraList2.push_back(tmp);
-								}
-
-								
-								int num = paraList2.size();
-								string out = "";
-								for(int i = 0; i < num; i++){
-									out = out + (yyvsp[0]).val + " ";
-									if(paraList2.at(i).isref){out +="&";}
-									out = out + paraList2.at(i).name + ", ";
-								}
-								(yyval).val = out.substr(0, out.size()-2);
-								(yyval).typ = (yyvsp[0]).typ;
-								//cerr << $$.val << endl;
+	
 							}
-#line 1951 "y.tab.c" /* yacc.c:1646  */
+#line 1791 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 40:
-#line 484 "yacc.y" /* yacc.c:1646  */
+#line 365 "yacc.y" /* yacc.c:1646  */
     {
 						/* 39.	subprogram_body  -> const_declarations  var_declarations  compound_statement */
-								(yyval).val = "{\n" + (yyvsp[-2]).val + (yyvsp[-1]).val + (yyvsp[0]).val + "}\n";
+	
 							}
-#line 1960 "y.tab.c" /* yacc.c:1646  */
+#line 1800 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 41:
-#line 489 "yacc.y" /* yacc.c:1646  */
+#line 370 "yacc.y" /* yacc.c:1646  */
     {
 						/* 40.	compound_statement -> begin  statement_list  end  */
-								(yyval).val = (yyvsp[-1]).val;
+	
 							}
-#line 1969 "y.tab.c" /* yacc.c:1646  */
+#line 1809 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 42:
-#line 494 "yacc.y" /* yacc.c:1646  */
+#line 375 "yacc.y" /* yacc.c:1646  */
     {
 						/* 41.	statement_list -> statement_list  ;  statement */    
-								(yyval).val = (yyvsp[-2]).val + (yyvsp[0]).val;
+	
 							}
-#line 1978 "y.tab.c" /* yacc.c:1646  */
+#line 1818 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 43:
-#line 498 "yacc.y" /* yacc.c:1646  */
+#line 379 "yacc.y" /* yacc.c:1646  */
     {
 						/* 42.	statement_list -> statement */
-								(yyval).val = (yyvsp[0]).val;
 
 							}
-#line 1988 "y.tab.c" /* yacc.c:1646  */
+#line 1827 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 44:
-#line 504 "yacc.y" /* yacc.c:1646  */
+#line 384 "yacc.y" /* yacc.c:1646  */
     {
 						/* 43.	statement -> variable  assignop  expression  */
-								//43
-								// check return statement
-								if(GetType((yyvsp[-2]).val) == "function"){
-									if(GetSubType((yyvsp[-2]).val) == (yyvsp[0]).typ){
-										(yyval).val = "return " + (yyvsp[0]).val + ";\n";
-									}
-									else{
-										yyerror("Wrong return statement.");
-									}
-								}
-
+	
 							}
-#line 2007 "y.tab.c" /* yacc.c:1646  */
+#line 1836 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 45:
-#line 518 "yacc.y" /* yacc.c:1646  */
+#line 388 "yacc.y" /* yacc.c:1646  */
     {
 						/* 44.	statement ->  procedure_call */
-								(yyval).val = (yyvsp[0]).val + ";\n";
+
 							}
-#line 2016 "y.tab.c" /* yacc.c:1646  */
+#line 1845 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 46:
-#line 522 "yacc.y" /* yacc.c:1646  */
+#line 392 "yacc.y" /* yacc.c:1646  */
     {
 						/* 45.	statement ->  compound_statement  */
-								(yyval).val + (yyvsp[0]).val;
+
 							}
-#line 2025 "y.tab.c" /* yacc.c:1646  */
+#line 1854 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 47:
-#line 526 "yacc.y" /* yacc.c:1646  */
+#line 396 "yacc.y" /* yacc.c:1646  */
     {
 						/* 46.	statement ->  if  expression  then statement  else_part  */
-								(yyval).val = "if(" + (yyvsp[-3]).val + ")\n{\n" + (yyvsp[-1]).val + "}\n" + (yyvsp[0]).val;
 
-								if((yyvsp[-3]).typ != "boolean"){
-									yyerror("error in if expression type");
-								}
 							}
-#line 2038 "y.tab.c" /* yacc.c:1646  */
+#line 1863 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 48:
-#line 534 "yacc.y" /* yacc.c:1646  */
+#line 400 "yacc.y" /* yacc.c:1646  */
     {
 						/* 47.	statement ->  for  id  assignop  expression   to  expression  do  statement */
-								string ret = GetType((yyvsp[-6]).val);
-								if(ret == "FAILED"){
-									yyerror("variable not declared.");
-								}
-								else {
-									if(ret != "int" || (yyvsp[-4]).typ != "int" || (yyvsp[-2]).typ != "int"){
-										yyerror("Wrong type");
-									}
-									else if((yyvsp[-4]).val > (yyvsp[-2]).val){
-										yyerror("Range error.");
-									}
-									else{
-										(yyval).val = "for(" + (yyvsp[-6]).val + "=" + (yyvsp[-4]).val + "; " + (yyvsp[-6]).val + "<=" + (yyvsp[-2]).val + "; " + (yyvsp[-6]).val + "++)\n{\n" + (yyvsp[0]).val + "}\n";
-									}
-								}
+
 							}
-#line 2061 "y.tab.c" /* yacc.c:1646  */
+#line 1872 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 49:
-#line 552 "yacc.y" /* yacc.c:1646  */
+#line 404 "yacc.y" /* yacc.c:1646  */
     {
 						/* 48.	statement -> read ( variable_list  )  */
-								(yyval).val = ReadToScanf((yyvsp[-1]).val);
+
 							}
-#line 2070 "y.tab.c" /* yacc.c:1646  */
+#line 1881 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 50:
-#line 556 "yacc.y" /* yacc.c:1646  */
+#line 408 "yacc.y" /* yacc.c:1646  */
     {
 						/* 49.	statement -> write ( expression_list )  */
-								(yyval).val = WriteToPrintf((yyvsp[-1]).val);
+
 							}
-#line 2079 "y.tab.c" /* yacc.c:1646  */
+#line 1890 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 51:
-#line 560 "yacc.y" /* yacc.c:1646  */
+#line 412 "yacc.y" /* yacc.c:1646  */
     {
-						/* 50.	statement -> ε */ 
-								(yyval).val = "";
+						/* 50.	statement -> ??*/ 
 						}
-#line 2088 "y.tab.c" /* yacc.c:1646  */
+#line 1898 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 52:
-#line 567 "yacc.y" /* yacc.c:1646  */
+#line 416 "yacc.y" /* yacc.c:1646  */
     {
 						/* 51.	variable_list -> variable_list , variable    */
 								(yyval).val = (yyvsp[-2]).val + "," + (yyvsp[0]).val;
 								vari_list.push_back((yyvsp[0]));
 							}
-#line 2098 "y.tab.c" /* yacc.c:1646  */
+#line 1908 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 53:
-#line 572 "yacc.y" /* yacc.c:1646  */
+#line 421 "yacc.y" /* yacc.c:1646  */
     {
 						/* 52.	variable_list ->  variable */
 								vari_list.clear();
 								vari_list.push_back((yyvsp[0]));
 								(yyval).val = (yyvsp[0]).val;
 							}
-#line 2109 "y.tab.c" /* yacc.c:1646  */
+#line 1919 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 54:
-#line 579 "yacc.y" /* yacc.c:1646  */
+#line 428 "yacc.y" /* yacc.c:1646  */
     {
 						/* 53.	variable -> id  id_varpart */
 								string flag = GetType((yyvsp[-1]).val);
-								int did = FindSymbol((yyvsp[-1]).val);
-								//symbol_print(st.Sstack[did]);
-								
-
-								if(flag == "FAILED") cerr << (yyvsp[-1]).val << endl, yyerror("id doesn't exist");
+								if(flag == "FAILED") yyerror("id doesn't exist");
 								else if(flag == "array"){
 									int d = GetDimension((yyvsp[-1]).val);
 									if(expr_list.size() != d) yyerror("array dimenssion error!");
@@ -2140,29 +1946,29 @@ yyreduce:
 									(yyval).val = (yyvsp[-1]).val;
 								}
 							}
-#line 2144 "y.tab.c" /* yacc.c:1646  */
+#line 1950 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 55:
-#line 609 "yacc.y" /* yacc.c:1646  */
+#line 454 "yacc.y" /* yacc.c:1646  */
     {
 						/* 54.	id_varpart -> [ expression_list ]   */
 								(yyval).val = '[' + (yyvsp[-1]).val + ']';
 							}
-#line 2153 "y.tab.c" /* yacc.c:1646  */
+#line 1959 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 56:
-#line 613 "yacc.y" /* yacc.c:1646  */
+#line 458 "yacc.y" /* yacc.c:1646  */
     {
 						/* 55.	id_varpart -> ??*/
 								(yyval).val = (yyval).typ = "";
 							}
-#line 2162 "y.tab.c" /* yacc.c:1646  */
+#line 1968 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 57:
-#line 618 "yacc.y" /* yacc.c:1646  */
+#line 463 "yacc.y" /* yacc.c:1646  */
     {
 						/* 56.	procedure_call -> id  */
 								string flag = GetType((yyvsp[0]).val);
@@ -2176,11 +1982,11 @@ yyreduce:
 									(yyval).val = (yyvsp[0]).val;
 								}
 							}
-#line 2180 "y.tab.c" /* yacc.c:1646  */
+#line 1986 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 58:
-#line 631 "yacc.y" /* yacc.c:1646  */
+#line 476 "yacc.y" /* yacc.c:1646  */
     {
 						/* 57.	procedure_call -> id ( expression_list ) */
 								string flag = GetType((yyvsp[-3]).val);
@@ -2202,52 +2008,52 @@ yyreduce:
 									}
 								}
 							}
-#line 2206 "y.tab.c" /* yacc.c:1646  */
+#line 2012 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 59:
-#line 653 "yacc.y" /* yacc.c:1646  */
+#line 498 "yacc.y" /* yacc.c:1646  */
     {
 						/* 58.	else_part -> else statement   */
 								(yyval).typ = (yyvsp[0]).typ;
-								(yyval).val = "else\n{\n" + (yyvsp[0]).val + "}\n";
+								(yyval).val = "else\n" + (yyvsp[0]).val;
 							}
-#line 2216 "y.tab.c" /* yacc.c:1646  */
+#line 2022 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 60:
-#line 658 "yacc.y" /* yacc.c:1646  */
+#line 503 "yacc.y" /* yacc.c:1646  */
     {
 						/* 59.	else_part ->  ??*/
 								(yyval).typ = "int";
 								(yyval).val = "";
 						}
-#line 2226 "y.tab.c" /* yacc.c:1646  */
+#line 2032 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 61:
-#line 664 "yacc.y" /* yacc.c:1646  */
+#line 509 "yacc.y" /* yacc.c:1646  */
     {
 						/* 60.	expression_list -> expression_list  ,  expression   */
 								(yyval).val = (yyvsp[-2]).val + "," + (yyvsp[0]).val;
 								expr_list.push_back((yyvsp[0]));
 							}
-#line 2236 "y.tab.c" /* yacc.c:1646  */
+#line 2042 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 62:
-#line 669 "yacc.y" /* yacc.c:1646  */
+#line 514 "yacc.y" /* yacc.c:1646  */
     {
 						/* 61.	expression_list ->  expression  */
 								expr_list.clear();
 								expr_list.push_back((yyvsp[0]));
 								(yyval) = (yyvsp[0]);
 							}
-#line 2247 "y.tab.c" /* yacc.c:1646  */
+#line 2053 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 63:
-#line 676 "yacc.y" /* yacc.c:1646  */
+#line 521 "yacc.y" /* yacc.c:1646  */
     {
 						/* 62.	expression -> simple_expression  relop  simple_expression */
 								if((yyvsp[0]).typ == "string"){
@@ -2256,33 +2062,29 @@ yyreduce:
 								if((yyvsp[-2]).typ != (yyvsp[0]).typ){
 									yyerror("The expression type should be same on both sides.");
 								}
-
-
-								
-
- 								if((yyvsp[-1]).val == "="){
+								(yyval).typ == "boolean";
+								if((yyvsp[-1]).val == "="){
 									(yyval).val = (yyvsp[-2]).val + "==" + (yyvsp[0]).val;
 								}
 								else{
 									(yyval).val = (yyvsp[-2]).val + (yyvsp[-1]).val + (yyvsp[0]).val;
 								}
-								(yyval).typ = "boolean";
 							}
-#line 2272 "y.tab.c" /* yacc.c:1646  */
+#line 2074 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 64:
-#line 696 "yacc.y" /* yacc.c:1646  */
+#line 537 "yacc.y" /* yacc.c:1646  */
     {
 						/* 63.	expression ->  simple_expression */
 								(yyval).typ = (yyvsp[0]).typ;
 								(yyval).val = (yyvsp[0]).val;
 							}
-#line 2282 "y.tab.c" /* yacc.c:1646  */
+#line 2084 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 65:
-#line 702 "yacc.y" /* yacc.c:1646  */
+#line 543 "yacc.y" /* yacc.c:1646  */
     {
 						/* 64.	simple_expression -> simple_expression  addop term   */
 								if(((yyvsp[-1]).val=="+")||((yyvsp[-1]).val=="-")){
@@ -2306,21 +2108,21 @@ yyreduce:
 										yyerror("The addop is wrong.");
 								}
 							}
-#line 2310 "y.tab.c" /* yacc.c:1646  */
+#line 2112 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 66:
-#line 725 "yacc.y" /* yacc.c:1646  */
+#line 566 "yacc.y" /* yacc.c:1646  */
     {
 						/* 65.	simple_expression -> term */
 								(yyval).typ = (yyvsp[0]).typ;
 								(yyval).val = (yyvsp[0]).val;
 							}
-#line 2320 "y.tab.c" /* yacc.c:1646  */
+#line 2122 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 67:
-#line 731 "yacc.y" /* yacc.c:1646  */
+#line 572 "yacc.y" /* yacc.c:1646  */
     {
 						/* 66.	term -> term  mulop  factor */
 								if(((yyvsp[-1]).val=="*")||((yyvsp[-1]).val=="/")){
@@ -2332,57 +2134,48 @@ yyreduce:
 										yyerror("/0");
 									(yyval).val = (yyvsp[-2]).val + (yyvsp[-1]).val + (yyvsp[0]).val; 
 								}
-								else if((yyvsp[-1]).val == "div" || (yyvsp[-1]).val == "mod"){
-									if((yyvsp[-2]).typ != "int" || (yyvsp[0]).typ != "int") yyerror("type error!");
-									else{
-										(yyval).typ = "int";
-										if((yyvsp[-1]).val == "div") (yyval).val = (yyvsp[-2]).val + "/" + (yyvsp[0]).val;
-										else (yyval).val = (yyvsp[-2]).val + "%" + (yyvsp[0]).val;
-									}
-								}
+								else
+									yyerror("The mulop is wrong.");
 							}
-#line 2345 "y.tab.c" /* yacc.c:1646  */
+#line 2141 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 68:
-#line 751 "yacc.y" /* yacc.c:1646  */
+#line 586 "yacc.y" /* yacc.c:1646  */
     {
 						/* 67.	term -> factor */
 								(yyval).typ = (yyvsp[0]).typ;
 								(yyval).val = (yyvsp[0]).val;
 							}
-#line 2355 "y.tab.c" /* yacc.c:1646  */
+#line 2151 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 69:
-#line 757 "yacc.y" /* yacc.c:1646  */
+#line 592 "yacc.y" /* yacc.c:1646  */
     {
 						/* 68.	factor -> num  */
 								(yyval).typ = (yyvsp[0]).typ;
 								(yyval).val = (yyvsp[0]).val;
 							}
-#line 2365 "y.tab.c" /* yacc.c:1646  */
+#line 2161 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 70:
-#line 762 "yacc.y" /* yacc.c:1646  */
+#line 597 "yacc.y" /* yacc.c:1646  */
     {
 						/* 69.	factor -> variable      */
 								(yyval).typ = (yyvsp[0]).typ;
 								(yyval).val = (yyvsp[0]).val;
 							}
-#line 2375 "y.tab.c" /* yacc.c:1646  */
+#line 2171 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 71:
-#line 767 "yacc.y" /* yacc.c:1646  */
+#line 602 "yacc.y" /* yacc.c:1646  */
     {
 						/* 70.	factor ->  id  ( expression_list ) */
 								string flag = GetType((yyvsp[-3]).val);
-								if(flag == "FAILED") {
-									//symboltable_print(st);
-									cerr << (yyvsp[-3]).val << endl, yyerror("id doesn't exist"); //标识符不存在
-								}
+								if(flag == "FAILED") yyerror("id doesn't exist"); //标识符不存在
 								else if(flag != "function"){
 									err_info = "id:" + (yyvsp[-3]).val + " is not a procedure";
 									yyerror(err_info.c_str());
@@ -2395,99 +2188,98 @@ yyreduce:
 									if(fflag == DIMENSION_ERROR) yyerror("DIMENSION_ERROR!"); //维度不匹配
 									else if(fflag == NOT_MATCH) yyerror("parameters don't match!"); // 类型不匹配
 									else{
-										//sssssssss
-										(yyval).typ = GetSubType((yyvsp[-3]).val);
+										(yyval).typ = "function";
 										(yyval).val = (yyvsp[-3]).val + "(" + (yyvsp[-1]).val + ")";
 									}
 								}
 							}
-#line 2405 "y.tab.c" /* yacc.c:1646  */
+#line 2197 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 72:
-#line 792 "yacc.y" /* yacc.c:1646  */
+#line 623 "yacc.y" /* yacc.c:1646  */
     {
 						/* 71.	factor -> ( expression )   */
 								(yyval).typ = (yyvsp[-1]).typ;
 								(yyval).val = "(" + (yyvsp[-1]).val + ")";
 							}
-#line 2415 "y.tab.c" /* yacc.c:1646  */
+#line 2207 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 73:
-#line 797 "yacc.y" /* yacc.c:1646  */
+#line 628 "yacc.y" /* yacc.c:1646  */
     {
 						/* 72.	factor ->  not  factor  */
 								(yyval).typ = (yyvsp[-1]).typ;
 								(yyval).val = "!" + (yyvsp[0]).val;
 							}
-#line 2425 "y.tab.c" /* yacc.c:1646  */
+#line 2217 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 74:
-#line 802 "yacc.y" /* yacc.c:1646  */
+#line 633 "yacc.y" /* yacc.c:1646  */
     { //ֻ???addopΪ-ʱ?ſ?Թ??
 						/* 73.	factor -> uminus  factor*/
 								(yyval).typ = (yyvsp[-1]).typ;
 								(yyval).val = "-" + (yyvsp[0]).val;
 							}
-#line 2435 "y.tab.c" /* yacc.c:1646  */
+#line 2227 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 75:
-#line 808 "yacc.y" /* yacc.c:1646  */
+#line 639 "yacc.y" /* yacc.c:1646  */
     {
 						/* 74.	digits -> digits DIGIT */
 								(yyval).typ = (yyvsp[-1]).typ;
 								(yyval).val = (yyvsp[-1]).val + (yyvsp[0]).val;
 							}
-#line 2445 "y.tab.c" /* yacc.c:1646  */
+#line 2237 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 76:
-#line 813 "yacc.y" /* yacc.c:1646  */
+#line 644 "yacc.y" /* yacc.c:1646  */
     {
 						/* 75.	digits -> DIGIT */
 								(yyval).typ = "int";
 								(yyval).val = (yyvsp[0]).val;
 							}
-#line 2455 "y.tab.c" /* yacc.c:1646  */
+#line 2247 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 77:
-#line 819 "yacc.y" /* yacc.c:1646  */
+#line 650 "yacc.y" /* yacc.c:1646  */
     {
 						/* 76.	optional_fraction -> POINT digits*/
 								(yyval).typ = "float";
 								(yyval).val = "." + (yyvsp[0]).val;
 							}
-#line 2465 "y.tab.c" /* yacc.c:1646  */
+#line 2257 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 78:
-#line 824 "yacc.y" /* yacc.c:1646  */
+#line 655 "yacc.y" /* yacc.c:1646  */
     {
 						/* 77.		optional_fraction -> ??*/ 
 								(yyval).typ = "int";
 								(yyval).val = "";
 						}
-#line 2475 "y.tab.c" /* yacc.c:1646  */
+#line 2267 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 79:
-#line 830 "yacc.y" /* yacc.c:1646  */
+#line 661 "yacc.y" /* yacc.c:1646  */
     {
 						/* 78.	Num -> digits optional_fraction */
 								if((yyvsp[0]).typ == "int") (yyval).typ = "int";
 								else (yyval).typ = "float";
-								(yyval).val = (yyvsp[-1]).val + (yyvsp[0]).val;
+								(yyval).typ = (yyvsp[-1]).typ + (yyvsp[0]).typ;
 								//cerr << "num:" << $$.val << " " + pos->view() << endl; 
 							}
-#line 2487 "y.tab.c" /* yacc.c:1646  */
+#line 2279 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
 
-#line 2491 "y.tab.c" /* yacc.c:1646  */
+#line 2283 "yacc.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -2715,74 +2507,9 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 838 "yacc.y" /* yacc.c:1906  */
+#line 669 "yacc.y" /* yacc.c:1906  */
 
 void yyerror(const char * s){
-	cerr << s << " @ " << pos -> view2() << endl;
+	cerr << s << " @ " << pos -> view() << endl;
 	return;
-}
-
-string stdIOTypeTrans(string typ){
-	if(typ == "int"){
-		return "%d";
-	}
-	else if(typ == "char"){
-		return "%c";
-	}
-	else if(typ == "float"){
-		return "%f";
-	}
-	else{
-		return "false";
-	}
-}
-
-string ReadToScanf(string in){
-	string out = "scanf(\"";
-	int i;
-	for(i = 0; i < vari_list.size(); i++){
-		myTYPE tmp = vari_list.at(i);
-		string s = stdIOTypeTrans(tmp.typ);
-		if(s != "false"){
-			out += s;
-		}
-		else{
-			yyerror("type cannot read.");
-			return "";
-		}
-		//if(i != expr_list.size()-1) {out += "";}
-	}
-	out += "\"";
-	for(i = 0; i < vari_list.size(); i++){
-		myTYPE tmp = vari_list.at(i);
-		out += ", &";
-		out += tmp.val;
-	}
-	out += ");\n";
-	return out;
-}
-
-string WriteToPrintf(string in){
-	string out = "printf(\"";
-	int i;
-	for(i = 0; i < expr_list.size(); i++){
-		myTYPE tmp = expr_list.at(i);
-		string s = stdIOTypeTrans(tmp.typ);
-		if(s != "false"){
-			out += s;
-		}
-		else{
-			yyerror("type cannot write.");
-			return "";
-		}
-		if(i != expr_list.size()-1) {out += ", ";}
-	}
-	out += "\"";
-	for(i = 0; i < expr_list.size(); i++){
-		myTYPE tmp = expr_list.at(i);
-		out += ", ";
-		out += tmp.val;
-	}
-	out += ");\n";
-	return out;
 }
