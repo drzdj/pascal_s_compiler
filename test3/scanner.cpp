@@ -56,12 +56,13 @@
 using namespace std;
 //#define ILLEGAL_CHAR 0
 //#define ERROR_OPERATOR 1
+#define key_num 28
 Position * pos = new Position();
 myTYPE medret;
 int errflag = 0;
 FILE *fp = stdin;
 
-string key[28] = 
+string key[key_num] = 
 { "program","const","var","function","procedure","begin","end",
 "for","if","then","else","while","to","do","of","call","read",
 "write","integer","real","boolean","char","or","and","div","mod",
@@ -160,7 +161,7 @@ int yylex() {
 				ungetc(ch, fp);
 			int num;
 			num = isKey(arr);
-			if (num == 28) {
+			if (num == key_num) {
 				pos->change(arr);
 				return formatOutput(res, "id", arr);  //除关键字之外的字符串
 			}
@@ -355,7 +356,7 @@ int isLetter(char ch) {
 
 int isKey(string arr) {
 	int i;
-	for (i = 0; i < 28; i++) {
+	for (i = 0; i < key_num; i++) {
 		if (arr.compare(key[i]) == 0)
 			break;
 	}

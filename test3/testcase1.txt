@@ -1,11 +1,12 @@
 program example (input, output) ;
 var x , y: integer; t, z: char;
-function gcd(var a, b: integer; c, d : char): integer;         
+function gcd(var a, b: integer): integer;         
 begin              
 if b=0 then gcd:=a             
-else gcd:=gcd(b, a mod b, c, d)         
+else gcd:=gcd(b, a mod b)         
 end;     
 begin         
 read(x, y);         
-write(gcd(x, y, t, z))    
+write(gcd(x, y));
+while x=1 do x := x + 1    
 end.

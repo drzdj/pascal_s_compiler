@@ -513,6 +513,15 @@ statement 				:	variable ASSIGNOP expression {
 										yyerror("Wrong return statement.");
 									}
 								}
+								else{
+									string a = GetType($1.val);
+									if(a == "FAILED") {
+										yyerror("no such variable= =");
+									}
+									else{
+										$$.val = $1.val + "=" + $3.val + ";\n";
+									}	
+								}
 
 							}
 						|	procedure_call {
@@ -556,6 +565,10 @@ statement 				:	variable ASSIGNOP expression {
 						|	WRITE LCIRCLE expression_list RCIRCLE {
 						/* 49.	statement -> write ( expression_list )  */
 								$$.val = WriteToPrintf($3.val);
+							}
+						|	WHILE expression DO statement{
+						/* extra. statement -> while expr do statement*/
+								$$.val = "while(" + $2.val + "){\n" + $4.val + "}\n";
 							}
 						|	{
 						/* 50.	statement -> ε */ 
@@ -681,9 +694,6 @@ expression 				:	simple_expression RELOP simple_expression {
 								if($1.typ != $3.typ){
 									yyerror("The expression type should be same on both sides.");
 								}
-
-
-								
 
  								if($2.val == "="){
 									$$.val = $1.val + "==" + $3.val;
