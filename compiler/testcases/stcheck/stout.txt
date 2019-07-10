@@ -1,0 +1,40 @@
+SymbolStack:<<
+x int null 0 0 0
+y int null 0 0 0
+gcd function int 2 0 0
+paralist:
+<a, int, 0> <b, int, 0> 
+a int null 0 0 0
+b int null 0 0 0
+BlockStack:<<
+2 
+SymbolStack:<<
+x int null 0 0 0
+y int null 0 0 0
+gcd function int 2 0 0
+paralist:
+<a, int, 0> <b, int, 0> 
+BlockStack:<<
+
+SymbolStack:<<
+x int null 0 0 0
+y int null 0 0 0
+gcd function int 2 0 0
+paralist:
+<a, int, 0> <b, int, 0> 
+read procedure null 2 0 0
+paralist:
+
+write procedure null 1 0 0
+paralist:
+
+BlockStack:<<
+2 
+SymbolStack:<<
+x int null 0 0 0
+y int null 0 0 0
+gcd function int 2 0 0
+paralist:
+<a, int, 0> <b, int, 0> 
+BlockStack:<<
+

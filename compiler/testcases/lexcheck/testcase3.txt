@@ -1,0 +1,2 @@
+testcase3 error test
+illegal character like гд

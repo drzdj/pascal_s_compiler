@@ -10,8 +10,7 @@
 
 struct Symbol{
 	string name; //名字
-	string type; //类型名 char, int, float, boolean, 
-				 //array, function, procedure
+	string type; //类型名
 	string subtype; //数组元素类型 或 返回值类型
 	int dimension; //维度
 	bool isconst; //是否为常量
