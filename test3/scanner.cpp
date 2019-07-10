@@ -36,14 +36,14 @@
 	/ mulop /
 	:= assignop 
 	: COLON
-	%token COLON 1 	:
-%token LCIRCLE 2	(
-%token RCIRCLE 3	)
-%token LCUBE 4	[
-%token RCUBE 5	]
-%token SEMICOLON 6	；
-%token POINT 7	.
-%token COMMA 8	,
+	COLON 1 	:
+LCIRCLE 2	(
+RCIRCLE 3	)
+LCUBE 4	[
+RCUBE 5	]
+SEMICOLON 6	；
+POINT 7	.
+COMMA 8	,
 */
 
 

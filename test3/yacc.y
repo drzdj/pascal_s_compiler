@@ -56,6 +56,10 @@ extern SymbolTable st;
 
 %code{
 
+int err_cnt = 0;
+void Statistics();
+void yerror(const char *);
+
 /*chenrui*/
 int dimen = 0; //变量的维度
 string array_num; //数组变量的范围，如 a[10][10]
@@ -94,17 +98,25 @@ vector<string> typ_list;
 //rules >>
 
 programstruct:
-program_head SEMICOLON program_body POINT {
+	program_head SEMICOLON program_body POINT {
 /* 1. programstruct -> program_head; program_body. */
 		$$.val = "#include <stdio.h>\n" + $3.val;
+		Statistics();
 		cout << $$.val;
-		//cout << $$.val;
-		cerr << "compile complete ^^" << endl;
+
 	}
+	|error program_body POINT {
+		yerror("Error in program head.");
+
+	}
+	|program_head SEMICOLON program_body error {
+		yerror("Compile error.");
+	}
+
 	;
 
 program_head:
-/*2. program_head -> program id 无参数*/
+/* 2. program_head -> program id 无参数 */
 	PROGRAM ID {
 //pascal中的program无实际含义
 	} 
@@ -122,6 +134,18 @@ program_body:
 	compound_statement {
 /*4. program_body -> const_declarations var_declarations subprogram_declarations compound_statement*/
 		$$.val = $1.val + $2.val + $3.val + "int main()\n{\n" + $4.val + "return 0;\n}\n";
+	}
+	|error var_declarations subprogram_declarations compound_statement {
+		yerror("Error in const_declarations.");
+	}
+	|const_declarations error subprogram_declarations compound_statement {
+		yerror("Error in var_declarations.");
+	}
+	|const_declarations var_declarations error compound_statement {
+		yerror("Error in subprogram_declarations.");
+	}
+	|const_declarations var_declarations subprogram_declarations error {
+		yerror("Error in compound_statement");
 	}
 	;
 
@@ -148,7 +172,7 @@ idlist:
 const_declarations:	
 	CONST const_declaration SEMICOLON{
 /*7. const_declarations -> const const_declaration; */
-		$$.val = string("const") + " " + $2.val + ";";
+		$$.val = $2.val;
 	}
 	|{
 
@@ -180,7 +204,7 @@ const_declaration:
 			if (add_const(const_id, $3.typ) == FAILED){
 				yyerror(($3.val + "already exists!").c_str());
 			}
-			else $$.val = string("const ") + $3.typ + "" + $1.val + "=" + $3.val + ";\n";
+			else $$.val = string("const ") + $3.typ + " " + $1.val + "=" + $3.val + ";\n";
 		}
 		else{
 			yyerror("syntax error(EQ)!!!");
@@ -210,7 +234,7 @@ const_value:
 /*13. const_value -> 'letter'*/
 // 单个字符，注意在翻译时加上两侧的单引号
 		$$.typ = "char";
-		$$.val = "\'" + $1.val + "\'";
+		$$.val =  $1.val;
 	}
 	;
 
@@ -362,7 +386,8 @@ subprogram_declarations	:	subprogram_declarations	subprogram SEMICOLON {
 subprogram 				:		subprogram_head SEMICOLON subprogram_body {
 						/* 28.	subprogram -> subprogram_head   ;  subprogram_body */
 								//symboltable_print(st);
-								if(PopBlock() == FAILED){yyerror("pop block error.");}
+								if(PopBlock() == FAILED){//yyerror("pop block error.");
+								}
 								$$.val = $1.val + $3.val;
 
 							}
@@ -385,7 +410,7 @@ subprogram_head			:	PROCEDURE ID formal_parameter {
 									}
 								}
 								else{
-									yyerror("function declared implicitly.");
+									yyerror(("function "+ $2.val + " declared implicitly.").c_str());
 								}
 								paraList.clear();
 								}
@@ -407,7 +432,7 @@ subprogram_head			:	PROCEDURE ID formal_parameter {
 									}
 								}
 								else{
-									yyerror("function declared implicitly.");
+									yyerror(("function "+ $2.val + " declared implicitly.").c_str());
 								}
 								paraList.clear();
 								//symboltable_print(st);
@@ -516,7 +541,21 @@ statement 				:	variable ASSIGNOP expression {
 								else{
 									string a = GetType($1.val);
 									if(a == "FAILED") {
-										yyerror("no such variable= =");
+										int cpos = 0;
+										for(; cpos < $1.val.size(); cpos ++) if($1.val[cpos] == '[') break;
+										if(cpos == $1.val.size()){
+											err_info = string("no such variable ") + $1.val;
+											yyerror(err_info.c_str());
+										}
+										else{
+											string aname = $1.val.substr(0, cpos);
+											a = GetSubType(aname);
+											if(a == "FAILED") {
+												err_info = string("no such variable ") + $1.val;
+												yyerror(err_info.c_str());
+											} 
+											else $$.val = $1.val + "=" + $3.val + ";\n";
+										}
 									}
 									else{
 										$$.val = $1.val + "=" + $3.val + ";\n";
@@ -543,8 +582,9 @@ statement 				:	variable ASSIGNOP expression {
 						|	FOR ID ASSIGNOP expression TO expression DO statement {
 						/* 47.	statement ->  for  id  assignop  expression   to  expression  do  statement */
 								string ret = GetType($2.val);
+								
 								if(ret == "FAILED"){
-									yyerror("variable not declared.");
+									yyerror(("variable " + $2.val + " not declared.").c_str());
 								}
 								else {
 									if(ret != "int" || $4.typ != "int" || $6.typ != "int"){
@@ -568,7 +608,7 @@ statement 				:	variable ASSIGNOP expression {
 							}
 						|	WHILE expression DO statement{
 						/* extra. statement -> while expr do statement*/
-								$$.val = "while(" + $2.val + "){\n" + $4.val + "}\n";
+								$$.val = "while(" + $2.val + ")\n{\n" + $4.val + "}\n";
 							}
 						|	{
 						/* 50.	statement -> ε */ 
@@ -595,8 +635,7 @@ variable 				:	ID id_varpart {
 								int did = FindSymbol($1.val);
 								//symbol_print(st.Sstack[did]);
 								
-
-								if(flag == "FAILED") cerr << $1.val << endl, yyerror("id doesn't exist");
+								if(flag == "FAILED") err_info = "id " + $1.val + " doesn't exist.", yyerror(err_info.c_str());
 								else if(flag == "array"){
 									int d = GetDimension($1.val);
 									if(expr_list.size() != d) yyerror("array dimenssion error!");
@@ -631,7 +670,7 @@ id_varpart 				:	LCUBE expression_list RCUBE {
 procedure_call 			:	ID {
 						/* 56.	procedure_call -> id  */
 								string flag = GetType($1.val);
-								if(flag == "FAILED") yyerror("id doesn't exitst");
+								if(flag == "FAILED") err_info = "id " + $1.val + " doesn't exist.", yyerror(err_info.c_str());
 								else if(flag != "procedure") {
 									err_info = "id:" + $1.val + " is not a procedure";
 									yyerror(err_info.c_str());
@@ -644,7 +683,7 @@ procedure_call 			:	ID {
 						|	ID LCIRCLE expression_list RCIRCLE {
 						/* 57.	procedure_call -> id ( expression_list ) */
 								string flag = GetType($1.val);
-								if(flag == "FAILED") yyerror("id doesn't exitst");
+								if(flag == "FAILED") err_info = "id " + $1.val + " doesn't exist.", yyerror(err_info.c_str());
 								else if(flag != "procedure") {
 									err_info = "id:" + $1.val + " is not a procedure";
 									yyerror(err_info.c_str());
@@ -697,6 +736,12 @@ expression 				:	simple_expression RELOP simple_expression {
 
  								if($2.val == "="){
 									$$.val = $1.val + "==" + $3.val;
+								}
+								else if($2.val == "and"){
+									$$.val = $1.val + "&&" + $3.val;
+								}
+								else if($2.val == "or"){
+									$$.val = $1.val + "||" + $3.val;
 								}
 								else{
 									$$.val = $1.val + $2.val + $3.val;
@@ -779,7 +824,7 @@ factor					:	num {
 								string flag = GetType($1.val);
 								if(flag == "FAILED") {
 									//symboltable_print(st);
-									cerr << $1.val << endl, yyerror("id doesn't exist"); //标识符不存在
+									err_info = "id " + $1.val + " doesn't exist.", yyerror(err_info.c_str()); //标识符不存在
 								}
 								else if(flag != "function"){
 									err_info = "id:" + $1.val + " is not a procedure";
@@ -846,11 +891,26 @@ num 					: 	digits optional_fraction {
 							}
 						;
 %%
+void yerror(const char * s){
+	cerr << s << endl;
+	return;
+}
+
+void Statistics(){
+	if(!err_cnt) cerr << "0 error found" << endl;
+	else cerr << err_cnt << " error(s) detected" << endl;
+	cerr << "compile complete ^^" << endl;
+	cerr << "----------------------" << endl;
+	return;
+}
+
 void yyerror(const char * s){
+	err_cnt ++;
 	cerr << s << " @ " << pos -> view2() << endl;
 	return;
 }
 
+//xzc
 string stdIOTypeTrans(string typ){
 	if(typ == "int"){
 		return "%d";
@@ -904,7 +964,7 @@ string WriteToPrintf(string in){
 			yyerror("type cannot write.");
 			return "";
 		}
-		if(i != expr_list.size()-1) {out += ", ";}
+		if(i != expr_list.size()-1) {out += "";}
 	}
 	out += "\"";
 	for(i = 0; i < expr_list.size(); i++){
@@ -915,3 +975,4 @@ string WriteToPrintf(string in){
 	out += ");\n";
 	return out;
 }
+//xzc
