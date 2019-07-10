@@ -1,0 +1,38 @@
+program quicksort (input, outpt);
+const bk = ' ';
+var a: array [0 .. 100] of integer; n, i: integer;
+
+function partition(l, r : integer) : integer;
+var pivotkey, ll, rr : integer;
+begin 
+	pivotkey := a[l];
+	ll := l;
+	rr := r;
+	while ll < rr do
+	begin
+		while (a[rr] > pivotkey) and (ll < rr) do rr := rr - 1;
+		a[ll] := a[rr];
+		while (a[ll] <= pivotkey) and (ll < rr) do ll := ll + 1;
+		a[rr] := a[ll];
+	end;	
+	a[ll] := pivotkey;
+	partition := ll
+end;
+
+procedure quicksort(l, r: integer);
+var p: integer;
+begin
+	if l < r then
+	begin
+		p := partition(l, r);
+		quicksort(l, p - 1);
+		quicksort(p + 1, r);
+	end
+end;
+
+begin
+	read(n);
+	for i := 1 to n do read(a[i]);
+	quicksort(1, n);
+	for i := 1 to n do write(a[i], bk)
+end.
